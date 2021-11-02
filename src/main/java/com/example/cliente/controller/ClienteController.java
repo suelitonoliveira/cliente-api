@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -37,6 +39,17 @@ public class ClienteController {
         return clienteRepository
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+    }
+
+    @GetMapping
+    @ResponseStatus(HttpStatus.OK)
+    public List<Cliente> buscarAllPorNomeFulano(){
+         return clienteRepository
+                .findAll()
+                .stream()
+                .filter(cliente -> "Fulano".equals(cliente.getNome()))
+                .collect(Collectors.toList());
+
     }
 
     @DeleteMapping("{id}")

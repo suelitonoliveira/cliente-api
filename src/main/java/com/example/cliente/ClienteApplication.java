@@ -9,17 +9,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class ClienteApplication {
 	@Bean
 	public CommandLineRunner runner(@Autowired ClienteRepository clienteRepository){
 		return args -> {
-			clienteRepository.save(Cliente.builder()
-											.cpf("82695580010")
-											.nome("Fulano")
-											.dataCadastro(LocalDate.now())
-											.build());
+			clienteRepository.saveAll(Arrays.asList(
+					Cliente.builder()
+							.cpf("82695580010")
+							.nome("Fulano")
+							.dataCadastro(LocalDate.now())
+							.build(),
+					Cliente.builder()
+							.cpf("82695580010")
+							.nome("Fulano")
+							.dataCadastro(LocalDate.now())
+							.build()));
 		};
 	}
 
